@@ -33,7 +33,7 @@ public class User {
 	//oracle : sequence, mysql :  auto_increment 로 간다는 뜻~
 	private int id; // 시퀀스, auto_increment
 	
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 30, unique = true)
 	private String username; //아이디
 	
 
