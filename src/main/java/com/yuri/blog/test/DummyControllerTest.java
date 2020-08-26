@@ -8,9 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yuri.blog.model.RoleType;
@@ -27,6 +30,31 @@ public class DummyControllerTest {
 	//UserRepository 타입으로 스프링이 관리하고 있는 객체가 있다면 userRepository에 쏘옥 넣어준다. 
 	@Autowired //의존성 주입(DI)
 	private  UserRepository userRepository;
+	
+	// save 함수는 id를 전달하지 않으면 insert를 해주고
+	// save 함수는 id를 전달하면 해당 id에 대한 데이터가 있으면 update를 해주고
+	// save 함수는 id를 전달하면 해당 id에 대한 데이터가 없으면 insert를 한다. 
+	// email, password
+	
+	@Transactional //함수 종료시에 자동 commit 이 됨
+	@PutMapping("/dummy/user/{id}")
+	public User updateUser(@PathVariable int id, @RequestBody User requestUser ) { //json 데이터를 요청 => Java Object(MessageConverter의 Jackson 라이브러리가 변환해서 받아줌)
+		System.out.println("id : "+id);
+		System.out.println("password : "+requestUser.getPassword());
+		System.out.println("id : "+requestUser.getEmail());
+		
+		//이때 영속화가 일어남
+		User user = userRepository.findById(id).orElseThrow(()-> {
+			return new IllegalArgumentException("수정에 실패하였습니다.");
+		});
+		
+		// password와 email 변경
+		user.setPassword(requestUser.getPassword());
+		user.setEmail(requestUser.getEmail());
+	
+		// userRepository.save(requestUser);
+		return null;
+	}
 	
 	@GetMapping("/dummy/users")
 	public List<User> list(){
