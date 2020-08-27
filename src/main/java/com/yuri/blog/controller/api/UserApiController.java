@@ -29,8 +29,8 @@ public class UserApiController {
 		// 실제로 DB에 insert를 하고 아래에서 return이 되면 된다. 
 		// DI를 받아 사용하면 된다. 
 		user.setRole(RoleType.USER); 		// role 만 강제로 넣어줄 것임
-		int result = userService.회원가입(user);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), result); // 자바오브젝트를 JSON으로 변환해서 리턴 (Jackson)
+		userService.회원가입(user);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 자바오브젝트를 JSON으로 변환해서 리턴 (Jackson)
 		// result가 1이면 성공 -1이면 실패
 	}
 }
