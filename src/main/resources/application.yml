@@ -6,7 +6,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-    
+      # 아니 왜 빨간색?...
 spring:
   mvc:
     view:

@@ -28,8 +28,6 @@ import lombok.NoArgsConstructor;
 @Builder //빌더 패턴
 @Entity //orm,  데이터베이스에 맵핑을 시켜주는 클래스이다라고 명시해주는 어노테이션을 가까이 명시하는 게 좋음
 public class Board {
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	//auto_increment
 	private int id;

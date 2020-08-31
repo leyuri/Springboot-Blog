@@ -3,6 +3,9 @@ let index = {
         $("#btn-save").on("click", ()=>{ //function(){}를 쓰지 않고 ()=>{}를 사용하는 이유는 this를 바인딩하기 위해서
             this.save();
         });
+        $("#btn-login").on("click", ()=>{ //function(){}를 쓰지 않고 ()=>{}를 사용하는 이유는 this를 바인딩하기 위해서
+            this.login();
+        });
     },
 
     save: function(){
@@ -28,6 +31,29 @@ let index = {
             dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
         }).done(function(resp){
             alert("회원가입이 완료되었습니다.");
+            // console.log(resp);
+            location.href = "/blog";
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        }); 
+        
+    },
+    login: function(){
+        //alert('user의 save함수 호출됨');
+        let data = {
+                 //id값을 통해 찾는다. 그 아이디 값이 들고 있는 값을 변수에 바인딩
+                username: $("#username").val(),
+                password: $("#password").val(),
+        };
+        $.ajax({ 
+            //post 방식으로 요청을 할 것이다. get방식으로 하면 위험함, 주소에 id, password요청이 남기 때문 
+            type: "POST",
+            url: "/blog/api/user/login",
+            data: JSON.stringify(data), // http body데이터
+            contentType: "application/json; charset=utf-8",// body데이터가 어떤 타입인지(MIME)
+            dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
+        }).done(function(resp){
+            alert("로그인이 완료되었습니다.");
             // console.log(resp);
             location.href = "/blog";
         }).fail(function(error){

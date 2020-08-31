@@ -1,9 +1,10 @@
 package com.yuri.blog.service;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yuri.blog.model.User;
 import com.yuri.blog.repository.UserRepository;
@@ -19,5 +20,10 @@ public class UserService {
 	@Transactional
 	public void 회원가입(User user) {
 		userRepository.save(user);
+	}
+	
+	@Transactional(readOnly = true) // Select할 때 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료시에 트랜잭션 종류 (정합성)
+	public User 로그인(User user) {
+		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 	}
 }
