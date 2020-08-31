@@ -22,7 +22,7 @@ public class UserApiController {
 	@Autowired	// DI : 스프링이 컴포넌트 스캔할 때 서비스라는 어노테이션이 붙어있는 클래스를 보는 순간 스프링 빈에 등록해 메모리를 띄어준다. 
 	private UserService userService;
 	
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	//요청 받는게 json이니까 requestbody
 	public ResponseDto<Integer> save(@RequestBody User user,  HttpSession session) { // username, password, email
 		System.out.println("UserApiController : save 호출됨");
@@ -33,17 +33,4 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 자바오브젝트를 JSON으로 변환해서 리턴 (Jackson)
 		// result가 1이면 성공 -1이면 실패
 	} 
-	// 전통적인 로그인 방식 .. 
-	//	@PostMapping("/blog/api/user/login")
-	//	public ResponseDto<Integer> login(@RequestBody User user) {
-	//		System.out.println("UserApiController : login 호출됨");
-	//		User principal = userService.로그인(user); //principal (접근주체)
-	//		
-	//		
-	//		if(principal != null) {
-	//			session.setAttribute("principal", principal); //세션이 만들어짐 
-	//		}
-	//		
-	//		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
-	//	}
 }
