@@ -22,7 +22,8 @@ public class UserApiController {
 	@Autowired	// DI : 스프링이 컴포넌트 스캔할 때 서비스라는 어노테이션이 붙어있는 클래스를 보는 순간 스프링 빈에 등록해 메모리를 띄어준다. 
 	private UserService userService;
 	
-	
+	@Autowired // 세션 객체는 스프링 컨테이너가 빈으로 등록해서 가지고 있다는 뜻. 필요하면  DI해서 받아서 사용할 수 있음
+	private HttpSession session;
 	
 	@PostMapping("/api/user")
 	//요청 받는게 json이니까 requestbody
@@ -36,8 +37,9 @@ public class UserApiController {
 		// result가 1이면 성공 -1이면 실패
 	}
 	
+	// 전통적인 로그인 방식 .. 
 	@PostMapping("/blog/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
+	public ResponseDto<Integer> login(@RequestBody User user) {
 		System.out.println("UserApiController : login 호출됨");
 		User principal = userService.로그인(user); //principal (접근주체)
 		
