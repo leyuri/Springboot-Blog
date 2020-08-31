@@ -1,5 +1,6 @@
 package com.yuri.blog.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 
 	
+	@Bean //IoC가 되요!!!
+	// 이 함수가 리턴하는 new BCryptPasswordEncoder(); 이 값을 스프링이 관리한다. 필요할 때마다 가져다 사용하면 된다. 
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();
 	}
@@ -23,8 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.csrf().disable() // csrf 토큰 비활성화 (테스트 시 걸어두는 게 좋음)
 			.authorizeRequests()
-				.antMatchers("/auth/**")
+				.antMatchers("/","/auth/**","/js/**","/css/**","/image/**")
 				.permitAll()
 				.anyRequest() //이게 아닌 다른 모든 요청은 
 				.authenticated()	//인증이 되어야 함
