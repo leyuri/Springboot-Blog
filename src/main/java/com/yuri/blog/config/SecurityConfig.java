@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 // 이 세개는 시큐리티의 세트이다... 이해가 안되면 그냥 하면 됨...^^
@@ -13,6 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity // 시큐리티 필터가 등록이 된다. 
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근을 하면 권한 및 인증을 미리 체크하겠다는 뜻.
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	 
+	
+	public BCryptPasswordEncoder encodePWD() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
