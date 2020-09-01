@@ -1,40 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 
-<%@ include file="layout/header.jsp" %>
+<%@ include file="layout/header.jsp"%>
 
-	<div class="container">
+<div class="container">
 
-		<div class="card m-2" >
+	<c:forEach var="board" items="${boards}">
+		<div class="card m-2">
 			<div class="card-body">
-				<h4 class="card-title">力格</h4>
+				<h4 class="card-title">${board.title}</h4>
 				<a href="#" class="btn btn-primary">惑技焊扁</a>
 			</div>
 		</div>
-		
-		<div class="card m-2" >
-			<div class="card-body">
-				<h4 class="card-title">力格</h4>
-				<a href="#" class="btn btn-primary">惑技焊扁</a>
-			</div>
-		</div>
-		
-		<div class="card m-2" >
-			<div class="card-body">
-				<h4 class="card-title">力格</h4>
-				<a href="#" class="btn btn-primary">惑技焊扁</a>
-			</div>
-		</div>
-		
-			<div class="card m-2" >
-			<div class="card-body">
-				<h4 class="card-title">力格</h4>
-				<a href="#" class="btn btn-primary">惑技焊扁</a>
-			</div>
-		</div>
-		
-	</div>
-	
-<%@ include file="layout/footer.jsp" %>
+	</c:forEach>
+
+</div>
+<%@ include file="layout/footer.jsp"%>
 
 
 
