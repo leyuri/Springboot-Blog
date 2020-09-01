@@ -38,8 +38,8 @@
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav">
-						<li class="nav-item"><a class="nav-link" href="/board/form">Add Post</a></li>
-						<li class="nav-item"><a class="nav-link" href="/user/form">MyInfo</a></li>
+						<li class="nav-item"><a class="nav-link" href="/board/saveForm">Add Post</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/updateForm">MyInfo</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 					</ul>
 				</c:otherwise>
