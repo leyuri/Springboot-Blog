@@ -35,6 +35,15 @@ public class BoardController {
 		return "board/detail";
 	}
 	
+	//	@PathVariable를 이용하여 id값을 받는다. 그리고 모델을 만든다. 
+	// 모델은 해당 데이터를 가지고 view까지 이동하는 것이다. 
+	@GetMapping("/board/{id}/updateForm")
+	public String updateForm(@PathVariable int id, Model model) {
+		// board 데이터를, boardService.글상세보기를 그대로 실행시켜준다. 재활용할 것. 어차피 그 글을 그대로 들고갈 것이기 때문에 
+		model.addAttribute("board", boardService.글상세보기(id));
+		return "board/updateForm";
+	}
+		
 	// User 권한이 필요
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
