@@ -29,19 +29,19 @@ let index = {
     },
 
     deleteById: function(){
-
-        var id
-
+        var id = $("#id").text();
+        
         $.ajax({ 
-            type: "POST",
-            url: "/api/board",
-            dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
+            type: "DELETE",
+            url: "/api/board/"+id,
+            dataType: "json"
         }).done(function(resp){
-            alert("Deleted successfully");
+            alert("삭제가 완료되었습니다.");
             location.href = "/";
         }).fail(function(error){
             alert(JSON.stringify(error));
         }); 
-    }
+    },
 }
+
 index.init();
