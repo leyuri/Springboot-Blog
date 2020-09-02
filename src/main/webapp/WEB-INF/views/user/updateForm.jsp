@@ -7,7 +7,7 @@
 	<form>
 		<div class="form-group">
 			<label for="username">Username:</label> 
-			<input type="text" class="form-control" placeholder="Enter username" id="username" readonly>
+			<input type="text"  value="${principal.user.username}" class="form-control" placeholder="Enter username" id="username" readonly>
 		</div>
 		
 		<div class="form-group">
@@ -17,10 +17,10 @@
 		
 		<div class="form-group">
 			<label for="email">Email address:</label> 
-			<input type="email" class="form-control" placeholder="Enter email" id="email">
+			<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email">
 		</div>
 	</form>
-	<button id="btn-save" class="btn btn-primary">sign up</button>
+	<button id="btn-update" class="btn btn-primary">Update myInfo</button>
 </div>
 
 <script src="/js/user.js"></script>
