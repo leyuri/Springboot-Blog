@@ -35,4 +35,12 @@ public class BoardService {
 	public Page<Board> 글목록(Pageable pageable) {
 		return boardRepository.findAll(pageable);
 	}
+	 
+	public Board 글상세보기(int id) {
+		return boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("Failure to view the details of the post: ID could not be found");
+				});
+	}
+	
 }
