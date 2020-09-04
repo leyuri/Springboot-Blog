@@ -48,7 +48,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role; //Enum을 쓰는 게 좋다. //ADMIN, USER
 	
-	
+	private String oauth; // kakao, google, 얘는 null이 허용이 된다. 
 	
 //	@ColumnDefault("'user'") //데이터베이스에서 varchar로 사용할 것이기 때문에 ' ' 추가
 //	private String role; // Enum을 쓰는 게 좋다. 왜? 도메인을 만들 수 있음 

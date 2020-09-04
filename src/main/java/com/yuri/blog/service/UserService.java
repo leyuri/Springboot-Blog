@@ -29,7 +29,7 @@ public class UserService {
 	public User 회원찾기(String username) {
 		//orElseThrow로 하면 오류난 것으로 처리될 수 있기 때문에....
 		User user = userRepository.findByUsername(username).orElseGet(()->{
-			// 빈객체를 리턴해준다
+			// 회원을 찾을때 회원이 없을 경우 빈객체를 리턴해준다. 빈객체 말고 강제로 만들어서 리턴해줄 수도 있다. 
 			return new User();
 		});
 		return user;

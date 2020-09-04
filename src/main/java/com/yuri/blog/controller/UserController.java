@@ -154,6 +154,7 @@ public class UserController {
 				.username(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
 				.password(yuriKey)
 				.email(kakaoProfile.getKakao_account().getEmail())
+				.oauth("kakao")
 				.build();
 	
 		// 가입자 혹은 비 가입자인지 체크를 해서 처리해야 함 
@@ -165,6 +166,8 @@ public class UserController {
 			System.out.println("기존 회원이 아닙니다___________________!!");
 			userService.회원가입(kaKaoUser);
 		}
+		
+		System.out.println("자동 로그인을 진행합니다.");
 		
 		// 로그인 처리 
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kaKaoUser.getUsername(), yuriKey));
