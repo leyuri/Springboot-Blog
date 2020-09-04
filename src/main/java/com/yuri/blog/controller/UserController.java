@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yuri.blog.config.auth.PrincipalDetail;
+import com.yuri.blog.model.OAuthToken;
 
 
 // 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth/** 허용
@@ -68,6 +72,20 @@ public class UserController {
 				kakaoTokenRequest,
 				String.class
 		);
+		
+		// Gson, Json Simple, ObjectMapper json 데이터를 담을 수 있는 라이브러리
+		// json 데이터를 자바 오브젝트에서 처리하기 위해서 자바 오브젝트로 바꾼 것
+		ObjectMapper objectMapper = new ObjectMapper();
+		OAuthToken oauthToken = null;
+		try {
+			oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("카카오 엑세스 토큰 : "+oauthToken.getAccess_token());
 		return response.getBody();
 	}
 	
