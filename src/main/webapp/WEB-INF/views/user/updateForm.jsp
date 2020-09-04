@@ -21,7 +21,7 @@
 
 		<div class="form-group">
 			<label for="email">Email address:</label> 
-			<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email">
+			<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email" readonly>
 		</div>
 	</form>
 	<button id="btn-update" class="btn btn-primary">Update myInfo</button>

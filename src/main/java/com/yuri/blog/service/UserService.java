@@ -55,15 +55,21 @@ public class UserService {
 		User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
 			return new IllegalArgumentException("회원 찾기 실패");
 		});
-		String rawPassword = user.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		persistance.setPassword(encPassword); //password 수정해주기
-		persistance.setEmail(user.getEmail()); //영속화 되어있는 곳에서 setEmail를 통해 변경해준다
+		
+		// Validate 체크 => oauth 필드에 값이 없으면 수정 가능
+		// getOauth 이게 있는 사람들은 패스워드를 집어넣든 말든  절대 수정되지 않도록 .. 
+		// null 이거나 비어있으면 
+		if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			persistance.setPassword(encPassword); //password 수정해주기
+			persistance.setEmail(user.getEmail()); //영속화 되어있는 곳에서 setEmail를 통해 변경해준다
+		}
+	
+		
 		// 회원수정 함수 종료시 = 서비스 종료 = 트랜잭션 종료 = commit이 자동으로 된다는 의미이다. 
 		// commit 이 자동으로 된다는 것은 영속화된 persistance 객체의 변화가 감지되면, 더티체킹이 되어 변화된 것들을 업데이트 update 문을 자동으로 날려준다. 
 		
 
 	}
-	
-	
 }
