@@ -3,6 +3,7 @@ package com.yuri.blog.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -36,6 +37,9 @@ import com.yuri.blog.service.UserService;
 @Controller
 public class UserController {
 	
+	@Value("${yuri.key}")
+	private String yuriKey;
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
@@ -53,7 +57,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/auth/kakao/callback")
-	public @ResponseBody String kakaoCallback(String code) { //Data를 리턴해주는 컨트롤러 함수
+	public String kakaoCallback(String code) { //Data를 리턴해주는 컨트롤러 함수
 		
 		// POST 방식으로 key=value 데이터를 요청 (카카오쪽으로), a 태그를 통해서 post 방식 못함, a 태그는 무조건 get 방식임
 		// Retrofit2
@@ -142,13 +146,13 @@ public class UserController {
 		System.out.println("블로그서버 유저네임:"+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
 		System.out.println("블로그서버 이메일:" + kakaoProfile.getKakao_account().getEmail());
 		
-		UUID garbagePassword = UUID.randomUUID();
-		System.out.println("블로그서버 패스워드:" + garbagePassword);
+		// UUID란 -> 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘
+		System.out.println("블로그서버 패스워드:" + yuriKey);
 		
 		
 		User kaKaoUser = User.builder()
 				.username(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
-				.password(garbagePassword.toString())
+				.password(yuriKey)
 				.email(kakaoProfile.getKakao_account().getEmail())
 				.build();
 	
@@ -163,9 +167,9 @@ public class UserController {
 		}
 		
 		// 로그인 처리 
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kaKaoUser.getUsername(), kaKaoUser.getPassword()));
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kaKaoUser.getUsername(), yuriKey));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-			
+
 		return "redirect:/";
 	}
 	
