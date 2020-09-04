@@ -24,6 +24,18 @@ public class UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	@Transactional(readOnly = true)
+	public User 회원찾기(String username) {
+		//orElseThrow로 하면 오류난 것으로 처리될 수 있기 때문에....
+		User user = userRepository.findByUsername(username).orElseGet(()->{
+			// 빈객체를 리턴해준다
+			return new User();
+		});
+		return user;
+	}
+	
+	
 	@Transactional
 	public void 회원가입(User user) {
 		String rawPassword = user.getPassword(); //1234 원문
