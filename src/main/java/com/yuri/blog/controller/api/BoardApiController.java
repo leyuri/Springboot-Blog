@@ -23,6 +23,7 @@ import com.yuri.blog.service.UserService;
 
 
 @RestController
+// Controller + Responsebody
 public class BoardApiController {
 
 	
@@ -33,6 +34,7 @@ public class BoardApiController {
 	@PostMapping("/api/board")
 	public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) { 
 		boardService.글쓰기(board, principal.getUser());
+		String a = "redirect";
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
 	}
 	
