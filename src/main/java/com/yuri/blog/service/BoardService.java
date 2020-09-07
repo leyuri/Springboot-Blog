@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yuri.blog.dto.ReplySaveRequestDto;
 import com.yuri.blog.model.Board;
 import com.yuri.blog.model.Reply;
 import com.yuri.blog.model.RoleType;
@@ -28,6 +29,9 @@ public class BoardService {
 	
 	@Autowired
 	private ReplyRepository replyRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
@@ -66,17 +70,38 @@ public class BoardService {
 		// 해당 함수로 종료시(Service가 종료될 때) 트랜잭션이 종료됩니다. 이때 더티체킹 - 자동 업데이트가 됨. db flush
 	}
 	
+
+//	@Transactional
+//	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+//		
+//		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+//			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
+//		}); // 영속화 완료;
+//		
+//		requestReply.setUser(user);
+//		requestReply.setBoard(board);
+//		
+//		replyRepository.save(requestReply);
+//	}
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
 	
-		Board board = boardRepository.findById(boardId)
-				.orElseThrow(()->{
-					return new IllegalArgumentException("댓글쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
-				}); // 영속화 완료
+		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("댓글쓰기 실패 : 유저 id를 찾을 수 없습니다.");
+		}); // 영속화 완료	
+
+		 
+		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
+			return new IllegalArgumentException("댓글쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
+		}); // 영속화 완료
 		
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
-		
-		replyRepository.save(requestReply);
+		Reply reply = Reply.builder()
+				.user(user)
+				.board(board)
+				.content(replySaveRequestDto.getContent())
+				.build();
+//		Reply reply = new Reply();
+//		reply.update(user, board, replySaveRequestDto.getContent());
+		replyRepository.save(reply);
 	}
 }
