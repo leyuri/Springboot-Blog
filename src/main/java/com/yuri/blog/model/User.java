@@ -33,6 +33,7 @@ public class User {
 	//oracle : sequence, mysql :  auto_increment 로 간다는 뜻~
 	private int id; // 시퀀스, auto_increment
 	
+	//unique가 걸려있기 때문에 동일한 아이디가 들어오지 않는다. 
 	@Column(nullable = false, length = 100, unique = true)
 	private String username; //아이디
 	

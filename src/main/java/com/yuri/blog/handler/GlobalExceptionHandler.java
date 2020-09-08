@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 //	IllegalArgumentException 이 발생하면 스프링은 그 exception에 대한 error를 이 함수에게 전달해준다. 
 	@ExceptionHandler(value=Exception.class)
 	public ResponseDto<String> handleArgumentException(Exception e) {
-		return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+		return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()); //500
 	}
 	// 다른 exception 을 받고 싶으면 여기다가 적으면 된다. 
 	//	@ExceptionHandler(value=IllegalArgumentException.class)
