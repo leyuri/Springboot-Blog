@@ -11,18 +11,41 @@
 			<input type="text"  value="${principal.user.username}" class="form-control" placeholder="Enter username" id="username" readonly>
 		</div>
 		
-		<!-- oauth 값이 없으면 패스워드를 수정할 수 있게 함-->
+		
+		<!--  
 		<c:if test="${empty principal.user.oauth}">
 			<div class="form-group">
 				<label for="pwd">Password:</label> 
 				<input type="password" class="form-control" placeholder="Enter password" id="password">
 			</div>
-		</c:if>
-
-		<div class="form-group">
+			<div class="form-group">
 			<label for="email">Email address:</label> 
-			<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email" readonly>
-		</div>
+			<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email" >
+			</div>
+		</c:if>
+		-->
+		
+		<!-- oauth 값이 없으면 패스워드를 수정할 수 있게 함, 일반 유저 가입자라면 패스워드와 이메일 수정할 수 있음. -->
+		<c:choose>
+			<c:when test="${empty principal.user.oauth}">
+			<div class="form-group">
+				<label for="pwd">Password:</label> 
+				<input type="password" class="form-control" placeholder="Enter password" id="password">
+			</div>
+			<div class="form-group">
+				<label for="email">Email address:</label> 
+				<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email" >
+			</div>
+			</c:when>
+			
+			<c:otherwise>
+			<div class="form-group">
+				<label for="email">Email address:</label> 
+				<input type="email"  value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email"  readonly="readonly">
+			</div>
+			</c:otherwise>
+		</c:choose>
+		
 	</form>
 	<button id="btn-update" class="btn btn-primary">Update myInfo</button>
 </div>
