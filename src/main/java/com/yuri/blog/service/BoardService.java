@@ -20,16 +20,22 @@ import com.yuri.blog.repository.BoardRepository;
 import com.yuri.blog.repository.ReplyRepository;
 import com.yuri.blog.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 	
-	@Autowired
-	private BoardRepository boardRepository;
+	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
 	
-	@Autowired
-	private ReplyRepository replyRepository;
+//	public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
+//		this.boardRepository = bRepo;
+//		this.replyRepository = rRepo;
+//	}
 	
+
 	@Autowired
 	private UserRepository userRepository;
 	
