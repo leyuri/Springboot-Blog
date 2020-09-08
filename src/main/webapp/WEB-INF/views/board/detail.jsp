@@ -47,7 +47,9 @@
 					<div>${reply.content}</div>
 					<div class="d-flex">
 						<div class="font-italic">commented by : ${reply.user.username} &nbsp;</div>
+						<c:if test="${reply.user.id == principal.user.id}">
 						<button onClick="index.replyDelete(${board.id}, ${reply.id})" class="badge">delete</button>
+						</c:if>
 					</div>
 				</li>
 			</c:forEach>
