@@ -8,6 +8,11 @@
 - Java +Springboot Framework
 - mysql
 
+### Structure
+
+| ![image](https://user-images.githubusercontent.com/33794732/93184056-c023e180-f776-11ea-9ee8-350ebca66269.png) | ![image](https://user-images.githubusercontent.com/33794732/93184065-c2863b80-f776-11ea-972e-1046a98dba82.png) |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+                     
 ### Features
 
 #### 1. 사용자
@@ -35,3 +40,7 @@
 
 -  Responsive Design: 모바일 환경에서도 서비스를 확인가능하도록 만든다.
 -  Ajax 기술
+
+### ScreenShots
+
+![image](https://user-images.githubusercontent.com/33794732/93185360-412fa880-f778-11ea-877f-f440c696714b.png)
